@@ -39,6 +39,8 @@ namespace Core
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool HasVSync() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		static Window* Create(const WindowProperties& props = WindowProperties());
 	};
 }

@@ -26,4 +26,4 @@
 #define CORE_EXPAND_MACRO(x) x
 #define CORE_STRINGIFY_MACRO(x) #x
 
-#define CORE_BIND_EVENT_FN(fn) std::bind(&Application::fn, this, std::placeholders::_1)
+#define CORE_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

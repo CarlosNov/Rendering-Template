@@ -13,14 +13,17 @@ set(IMGUI_DEFINE_MATH_OPERATORS OFF CACHE BOOL "")
 set(GLAD_SOURCES vendor/glad/src/glad.c)
 add_library(glad ${GLAD_SOURCES})
 
-#Execute CMake GLFW
+#Libraries subdirectories
 add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/glm)
 
 #Include directories for the library
 include_directories(vendor/imgui)
+include_directories(vendor/imgui/backends)
 include_directories(vendor/glad/include)
 include_directories(deps/src/glfw/include)
 include_directories(vendor/spdlog/include)
+include_directories(vendor/glm)
 include_directories(Core/src)
 
 #Set Properties

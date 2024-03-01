@@ -11,7 +11,7 @@ namespace Core
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(CORE_BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(CORE_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -34,7 +34,7 @@ namespace Core
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(CORE_BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(CORE_BIND_EVENT_FN(Application::OnWindowClose));
 
 		CORE_CORE_LOG_INFO("{0}", event.ToString());
 

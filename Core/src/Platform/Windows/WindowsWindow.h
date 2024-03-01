@@ -23,6 +23,8 @@ namespace Core
 		void SetVSync(bool enabled) override;
 		bool HasVSync() const override;
 
+		virtual void* GetNativeWindow() const { return m_Window; }
+
 	private:
 		virtual void Init(const WindowProperties& properties);
 		virtual void Shutdown();
