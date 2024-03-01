@@ -6,7 +6,7 @@ class App : public Core::Application
 public:
 	App()
 	{
-		PushOverlay(new Core::ImGuiLayer());
+
 	}
 
 	~App()

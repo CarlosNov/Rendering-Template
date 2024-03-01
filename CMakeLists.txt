@@ -15,7 +15,7 @@ add_library(glad ${GLAD_SOURCES})
 
 #Libraries subdirectories
 add_subdirectory(vendor/glfw)
-add_subdirectory(vendor/glm)
+#add_subdirectory(vendor/glm)
 
 #Include directories for the library
 include_directories(vendor/imgui)

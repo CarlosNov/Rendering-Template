@@ -6,6 +6,8 @@
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 
+#include "ImGui/ImGuiLayer.h"
+
 namespace Core
 {
 	class CORE_API Application
@@ -28,6 +30,7 @@ namespace Core
 
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

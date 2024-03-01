@@ -144,8 +144,8 @@ namespace Core
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
+		glfwPollEvents();	
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
