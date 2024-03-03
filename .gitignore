@@ -59,5 +59,4 @@ _vendor
 
 #Project
 build/
-vendor/
 imgui.ini

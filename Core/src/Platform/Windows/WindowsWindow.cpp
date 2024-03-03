@@ -19,7 +19,7 @@ namespace Core
 	{
 		return new WindowsWindow(properties);
 	}
-
+	
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
 	{
 		Init(properties);
