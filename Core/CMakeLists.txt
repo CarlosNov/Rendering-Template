@@ -18,7 +18,7 @@ set_target_properties(Core PROPERTIES
 set_target_properties(Core PROPERTIES
     OUTPUT_NAME "Core"
     PREFIX ""
-    SUFFIX ".lib"
+    SUFFIX ".dll"
 )
 
 target_precompile_headers(Core PRIVATE src/CorePCHeader.h)

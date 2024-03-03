@@ -1,15 +1,11 @@
 #pragma once
 
 #ifdef CORE_PLATFORM_WINDOWS
-#if CORE_DYNAMIC_LINK
 	#ifdef CORE_BUILD_DLL
 		#define CORE_API __declspec(dllexport)
 	#else
 		#define CORE_API __declspec(dllimport)
 	#endif
-#else
-	#define CORE_API
-#endif
 #else
 	#error Core only supports Windows!
 #endif
