@@ -1,5 +1,5 @@
 #pragma once
-/*
+
 namespace Core
 {
 	class RendererContext
@@ -13,4 +13,3 @@ namespace Core
 		static RendererContext* Create(void* window);
 	};
 }
-*/

@@ -34,8 +34,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Define a macro in CMake
+add_compile_definitions(OPERATING_SYSTEM_WINDOWS)
 add_compile_definitions(RENDERER_API_OPENGL)
-add_compile_definitions(OPERATIVE_SYSTEM_WINDOWS)
 
 add_subdirectory(App)
 add_subdirectory(Core)

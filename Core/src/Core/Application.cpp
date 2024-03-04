@@ -9,7 +9,7 @@ namespace Core
 
 	Application::Application()
 	{
-		CORE_CORE_ASSERT(!s_Instance, "Application already exists!");
+		CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -52,7 +52,7 @@ namespace Core
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(CORE_BIND_EVENT_FN(Application::OnWindowClose));
 
-		CORE_CORE_LOG_INFO("{0}", event.ToString());
+		CORE_LOG_INFO("{0}", event.ToString());
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

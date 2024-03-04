@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Core/Window.h"
+#include "Renderer/RendererContext.h"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Core
@@ -30,6 +30,7 @@ namespace Core
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		RendererContext* m_Context;
 
 		struct WindowData
 		{
