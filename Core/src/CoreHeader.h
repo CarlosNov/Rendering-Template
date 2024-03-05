@@ -5,6 +5,7 @@
 #include "Core/Layer.h"
 #include "Core/Log.h"
 #include "Core/Assert.h"
+#include "Events/Event.h"
 
 // Entry Point 
 #include "Core/KeyCodes.h"

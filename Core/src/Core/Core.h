@@ -4,7 +4,8 @@
 	#ifdef CORE_BUILD_DLL
 		#define CORE_API __declspec(dllexport)
 	#else
-		#define CORE_API __declspec(dllimport)
+		//#define CORE_API __declspec(dllimport)
+		#define CORE_API
 	#endif
 #else
 	#error Core only supports Windows!

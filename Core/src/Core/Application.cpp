@@ -47,6 +47,11 @@ namespace Core
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
