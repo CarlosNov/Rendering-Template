@@ -24,11 +24,12 @@ namespace App
 
 	void AppLayer::OnUpdate()
 	{
-
+        
 	}
 
 	void AppLayer::OnImGuiRender()
 	{
+        /*
         static bool m_bool = true;
         bool* p_open = &m_bool;
 
@@ -116,6 +117,7 @@ namespace App
         ImGui::End();
 
         ImGui::End();
+        */
 	}
 
 	void AppLayer::OnEvent(Core::Event& event)

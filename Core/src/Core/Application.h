@@ -6,6 +6,10 @@
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 
+#include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+
 #include "ImGui/ImGuiLayer.h"
 
 namespace Core
@@ -34,6 +38,9 @@ namespace Core
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		std::shared_ptr <VertexArray> m_VertexArray;
+		std::shared_ptr <Shader> m_Shader;
 
 		static Application* s_Instance;
 	};
