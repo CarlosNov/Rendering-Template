@@ -1,4 +1,5 @@
 #include "Renderer/RendererAPI.h"
+#include "Platform/OpenGL/OpenGLRendererAPI.h"
 
 namespace Core
 {
@@ -8,7 +9,7 @@ namespace Core
 	{
 		switch (CORE_RENDERING_API)
 		{
-		case Configuration::RendererAPI::OpenGL: //TODO
+		case Configuration::RendererAPI::OpenGL: return new OpenGLRendererAPI();
 		case Configuration::RendererAPI::Unknown: CORE_LOG_ERROR("Unknown RendererAPI"); return nullptr;
 		}
 

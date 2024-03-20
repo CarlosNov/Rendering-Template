@@ -1,10 +1,12 @@
-#include <AppLayer.h>
+#include "AppLayer.h"
+#include "Renderer/RendererCommand.h"
 
 #include <imgui.h>
 #include <imgui_internal.h>
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
+
 namespace App
 {
 	AppLayer::AppLayer() : Layer("App Layer")
@@ -14,7 +16,7 @@ namespace App
 
 	void AppLayer::OnAttach()
 	{
-
+        m_EditorCamera = Core::EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 	}
 
 	void AppLayer::OnDetach()
@@ -24,11 +26,26 @@ namespace App
 
 	void AppLayer::OnUpdate()
 	{
-        
+        if (m_ViewportSize.x > 0 && m_ViewportSize.y > 0)
+        {
+            m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
+        }     
+
+        Core::RendererCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.1, 0));
+        Core::RendererCommand::Clear();
+
+        m_EditorCamera.OnUpdate();
+        m_ActiveScene.Render(m_EditorCamera);
 	}
 
 	void AppLayer::OnImGuiRender()
 	{
+        m_ViewportFocused = ImGui::IsWindowFocused();
+        m_ViewportHovered = ImGui::IsWindowHovered();
+
+        ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+        m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+
         /*
         static bool m_bool = true;
         bool* p_open = &m_bool;
@@ -122,6 +139,6 @@ namespace App
 
 	void AppLayer::OnEvent(Core::Event& event)
 	{
-
+        m_EditorCamera.OnEvent(event);
 	}
 }
