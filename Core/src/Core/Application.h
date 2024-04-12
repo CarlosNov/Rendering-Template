@@ -6,6 +6,10 @@
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 
+#include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+
 #include "ImGui/ImGuiLayer.h"
 
 namespace Core
@@ -17,6 +21,7 @@ namespace Core
 		virtual ~Application();
 
 		void Run();
+		void Close();
 
 		void OnEvent(Event& event);
 

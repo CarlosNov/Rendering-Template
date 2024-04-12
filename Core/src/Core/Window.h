@@ -6,6 +6,7 @@
 
 namespace Core
 {
+
 	struct WindowProperties
 	{
 		std::string Title;

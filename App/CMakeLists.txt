@@ -4,6 +4,8 @@ project(App)
 
 include(../CMake/CommonMacros.txt)
 include_directories(../Core/src)
+include_directories(vendor/imgui)
+include_directories(vendor/imgui/backends)
 SETUP_APP(App "")
 
 # Set the include directories for the executable project

@@ -12,14 +12,9 @@ namespace Core
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		CORE_CORE_LOG_ERROR("GLFW Error ({0}): {1}", error, description);
+		CORE_LOG_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
-
-	Window* Window::Create(const WindowProperties& properties)
-	{
-		return new WindowsWindow(properties);
-	}
-
+	
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
 	{
 		Init(properties);
@@ -36,21 +31,20 @@ namespace Core
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		CORE_CORE_LOG_INFO("Creating Windows Window: {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
+		CORE_LOG_INFO("Creating Windows Window: {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			CORE_CORE_ASSERT(success, "Error initialazing GLFW.");
+			CORE_ASSERT(success, "Error initialazing GLFW.");
 
 			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		CORE_CORE_ASSERT(status, "Error initialazing GLAD.");
+		m_Context = RendererContext::Create(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -144,8 +138,8 @@ namespace Core
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwSwapBuffers(m_Window);
 		glfwPollEvents();	
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

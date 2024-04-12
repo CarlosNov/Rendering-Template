@@ -1,5 +1,6 @@
 #include "CorePCHeader.h"
 #include "Core/Application.h"
+#include "Renderer/Renderer.h"
 
 #include <glad/glad.h>
 
@@ -9,11 +10,13 @@ namespace Core
 
 	Application::Application()
 	{
-		CORE_CORE_ASSERT(!s_Instance, "Application already exists!");
+		CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(CORE_BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -28,9 +31,7 @@ namespace Core
 	{
 		while (m_Running)
 		{
-			glClearColor(0, 0, 0, 0);
-			glClear(GL_COLOR_BUFFER_BIT);
-
+			//Run Loop
 			for (auto layer : m_LayerStack)
 			{
 				layer->OnUpdate();
@@ -47,12 +48,17 @@ namespace Core
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(CORE_BIND_EVENT_FN(Application::OnWindowClose));
 
-		CORE_CORE_LOG_INFO("{0}", event.ToString());
+		CORE_LOG_INFO("{0}", event.ToString());
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

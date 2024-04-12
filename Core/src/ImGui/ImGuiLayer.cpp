@@ -132,10 +132,4 @@ namespace Core
 	{
 
 	}
-
-	void ImGuiLayer::OnImGuiRender()
-	{
-		bool m = true;
-		ImGui::ShowDemoWindow(&m);
-	}
 }
