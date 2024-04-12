@@ -16,6 +16,13 @@ namespace App
 
 	void AppLayer::OnAttach()
 	{
+        Core::FramebufferSpecification fbSpec;
+        fbSpec.Attachments = { Core::FramebufferTextureFormat::RGBA8,  Core::FramebufferTextureFormat::RED_INTEGER,  Core::FramebufferTextureFormat::Depth };
+        fbSpec.Width = 1280;
+        fbSpec.Height = 720;
+
+        m_Framebuffer = Core::Framebuffer::Create(fbSpec);
+
         m_EditorCamera = Core::EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 	}
 
@@ -26,16 +33,20 @@ namespace App
 
 	void AppLayer::OnUpdate()
 	{
-        if (m_ViewportSize.x > 0 && m_ViewportSize.y > 0)
+        if (Core::FramebufferSpecification spec = m_Framebuffer->GetSpecification(); m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
         {
+            m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
             m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
         }     
 
+        m_Framebuffer->Bind();
         Core::RendererCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.1, 0));
         Core::RendererCommand::Clear();
 
         m_EditorCamera.OnUpdate();
         m_ActiveScene.Render(m_EditorCamera);
+
+        m_Framebuffer->Unbind();
 	}
 
 	void AppLayer::OnImGuiRender()
@@ -46,7 +57,6 @@ namespace App
         ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
         m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-        /*
         static bool m_bool = true;
         bool* p_open = &m_bool;
 
@@ -131,10 +141,11 @@ namespace App
         ImGui::End();
 
         ImGui::Begin("Viewport");
+        uint64_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+        ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::End();
 
         ImGui::End();
-        */
 	}
 
 	void AppLayer::OnEvent(Core::Event& event)

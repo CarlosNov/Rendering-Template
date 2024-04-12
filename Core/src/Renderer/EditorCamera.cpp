@@ -94,7 +94,6 @@ namespace Core
 
 	void EditorCamera::MousePan(const glm::vec2& delta)
 	{
-		
 		auto v = PanSpeed();
 		auto [xSpeed, ySpeed] = v;
 		m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;

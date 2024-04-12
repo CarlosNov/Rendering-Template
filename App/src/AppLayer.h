@@ -3,6 +3,7 @@
 #include "CoreHeader.h"
 
 #include "Renderer/EditorCamera.h"
+#include "Renderer/Framebuffer.h"
 
 #include "Scene/Scene.h"
 
@@ -25,5 +26,6 @@ namespace App
 
 		Core::EditorCamera m_EditorCamera;
 		Core::Scene m_ActiveScene;
+		Core::Framebuffer* m_Framebuffer;
 	};
 }
