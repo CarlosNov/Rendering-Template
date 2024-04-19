@@ -6,11 +6,11 @@
 
 namespace Core
 {
-	VertexArray* VertexArray::Create()
+	std::shared_ptr<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-		case Configuration::RendererAPI::OpenGL:  return new OpenGLVertexArray();
+		case Configuration::RendererAPI::OpenGL:  return std::make_shared<OpenGLVertexArray>();
 		case Configuration::RendererAPI::Unknown: CORE_ASSERT(false, "RendererAPI::Unknown is currently not supported!"); return nullptr;
 		}
 

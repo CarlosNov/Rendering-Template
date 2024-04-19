@@ -58,7 +58,7 @@ namespace Core
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(CORE_BIND_EVENT_FN(Application::OnWindowClose));
 
-		CORE_LOG_INFO("{0}", event.ToString());
+		//CORE_LOG_INFO("{0}", event.ToString());
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

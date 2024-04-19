@@ -16,7 +16,7 @@ namespace Core
 		case ShaderDataType::vecFloat4:   return GL_FLOAT;
 		case ShaderDataType::Mat3:     return GL_FLOAT;
 		case ShaderDataType::Mat4:     return GL_FLOAT;
-		case ShaderDataType::vecInt:      return GL_INT;
+		case ShaderDataType::vecInt:      return GL_FLOAT; //Changed to receive the proper conversion
 		case ShaderDataType::vecInt2:     return GL_INT;
 		case ShaderDataType::vecInt3:     return GL_INT;
 		case ShaderDataType::vecInt4:     return GL_INT;

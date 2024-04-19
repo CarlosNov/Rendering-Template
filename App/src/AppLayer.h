@@ -7,6 +7,9 @@
 
 #include "Scene/Scene.h"
 
+#include "Events/MouseEvent.h"
+#include "Events/Event.h"
+
 namespace App
 {
 	class AppLayer : public Core::Layer
@@ -20,12 +23,20 @@ namespace App
 		virtual void OnUpdate() override;
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Core::Event& event) override;
+
 	private:
+		bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& e);
+		void DrawVec3Gui(const std::string& label, glm::vec3& m_Values, float resetValue = 0.0f);
+	private:
+
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+		glm::vec2 m_ViewportBounds[2];
 
 		Core::EditorCamera m_EditorCamera;
-		Core::Scene m_ActiveScene;
 		Core::Framebuffer* m_Framebuffer;
+
+		Core::Scene  m_ActiveScene;
+		Core::Entity m_HoveredEntity;
 	};
 }

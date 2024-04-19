@@ -21,11 +21,11 @@ namespace Core
 		}
 	}
 
-	VertexBuffer* VertexBuffer::Create(uint32_t size)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case Configuration::RendererAPI::OpenGL:  return new OpenGLVertexBuffer(size);
+		case Configuration::RendererAPI::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(size);
 		case Configuration::RendererAPI::Unknown: CORE_ASSERT(false, "RendererAPI::Unknown is currently not supported!"); return nullptr;
 		}
 
@@ -33,11 +33,11 @@ namespace Core
 		return nullptr;
 	}
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case Configuration::RendererAPI::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+		case Configuration::RendererAPI::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 		case Configuration::RendererAPI::Unknown: CORE_ASSERT(false, "RendererAPI::Unknown is currently not supported!"); return nullptr;
 		}
 
@@ -45,11 +45,11 @@ namespace Core
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
+	std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case Configuration::RendererAPI::OpenGL:  return new OpenGLIndexBuffer(indices, count);
+		case Configuration::RendererAPI::OpenGL:  return std::make_shared<OpenGLIndexBuffer>(indices, count);
 		case Configuration::RendererAPI::Unknown: CORE_ASSERT(false, "RendererAPI::Unknown is currently not supported!"); return nullptr;
 		}
 

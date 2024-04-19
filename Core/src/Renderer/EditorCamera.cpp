@@ -64,7 +64,6 @@ namespace Core
 	{	
 		if (Input::IsKeyPressed(Key::LeftControl))
 		{
-			CORE_LOG_INFO(glm::to_string(m_ViewMatrix));
 			const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
 			glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
 			m_InitialMousePosition = mouse;
