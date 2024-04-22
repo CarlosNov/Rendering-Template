@@ -5,10 +5,10 @@
 #include "Renderer/EditorCamera.h"
 #include "Renderer/Framebuffer.h"
 
-#include "Scene/Scene.h"
-
 #include "Events/MouseEvent.h"
 #include "Events/Event.h"
+
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace App
 {
@@ -26,7 +26,6 @@ namespace App
 
 	private:
 		bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& e);
-		void DrawVec3Gui(const std::string& label, glm::vec3& m_Values, float resetValue = 0.0f);
 	private:
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
@@ -38,5 +37,7 @@ namespace App
 
 		Core::Scene  m_ActiveScene;
 		Core::Entity m_HoveredEntity;
+
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

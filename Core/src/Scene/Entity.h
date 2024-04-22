@@ -4,28 +4,53 @@
 
 namespace Core
 {
+	class Scene;
+
 	class Entity
 	{
 	public:
-		Entity();
-		Entity(const Entity& other) = default;
+		Entity() = default;
+		Entity(Scene* scene);
 		~Entity();
 
 		void OnInit();
 		void OnUpdate();
 
-		TransformComponent& GetTransformComponent() { return transformComponent; };
-		void SetTransformComponent(TransformComponent transform) { transformComponent = transform; };
+		TagComponent& GetTagComponent() { return m_TagComponent; };
+		void SetTagComponent(TagComponent tag) { m_TagComponent = tag; };
 
-		ColorComponent& GetColorComponent() { return colorComponent; };
-		void SetColorComponent(ColorComponent color) { colorComponent = color; };
+		TransformComponent& GetTransformComponent() { return m_TransformComponent; };
+		void SetTransformComponent(TransformComponent transform) { m_TransformComponent = transform; };
+
+		ColorComponent& GetColorComponent() { return m_ColorComponent; };
+		void SetColorComponent(ColorComponent color) { m_ColorComponent = color; };
+
+		ScriptComponent& GetScriptComponent() { return m_ScriptComponent; };
+		void SetScriptComponent(ScriptComponent script) { m_ScriptComponent = script; };
 
 		int GetEntityID() { return m_EntityID; };
 		void SetEntityID(int id) { m_EntityID = id; };
 
+		bool HasTagComponent() { return m_TagComponent.Tag != ""; };
+		bool HasScriptComponent() { return m_ScriptComponent.Initialized; };
+
+		operator bool() const
+		{
+			return m_EntityID != -1;
+		}
+
+		bool operator==(const Entity& other) const
+		{
+			return m_EntityID == other.m_EntityID && m_Scene == other.m_Scene;
+		}
+
 	private:
-		TransformComponent transformComponent;
-		ColorComponent colorComponent;
-		int m_EntityID;
+		TagComponent m_TagComponent;
+		TransformComponent m_TransformComponent;
+		ColorComponent m_ColorComponent;
+		ScriptComponent m_ScriptComponent;
+
+		Scene* m_Scene = nullptr;
+		int m_EntityID = -1;
 	};
 }

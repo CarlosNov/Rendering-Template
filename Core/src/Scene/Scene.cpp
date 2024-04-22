@@ -1,6 +1,7 @@
 #include "CorePCHeader.h"
 
 #include "Scene/Scene.h"
+#include "Scene/Entity.h"
 #include "Renderer/Renderer.h"
 
 namespace Core
@@ -14,6 +15,17 @@ namespace Core
 	{
 	}
 
+	void Scene::OnUpdate()
+	{
+		for (auto& entity : m_Registry)
+		{
+			if (entity.HasScriptComponent())
+			{
+				entity.OnUpdate();
+			}
+		}
+	}
+
 	void Scene::AddEntity(Entity entity)
 	{
 		m_Registry.push_back(entity);
@@ -22,12 +34,31 @@ namespace Core
 		m_RegistryCount++;
 	}
 
-	void Scene::SetSelectedEntity(int id)
+	void Scene::SetActiveEntity(int id)
 	{
 		if(&m_Registry[id])
 		{
 			m_ActiveEntity = &m_Registry[id];
 		}
+	}
+
+	Entity& Scene::GetEntityByTag(std::string name)
+	{
+		for (auto& entity : m_Registry)
+		{
+			if (entity.GetTagComponent().Tag == name)
+			{
+				return entity;
+			}
+		}
+		return Entity();
+	}
+
+	Entity& Scene::GetEntityByID(uint32_t id)
+	{
+		if (id < 0 || id > m_Registry.size()) return {};
+
+		return m_Registry[id];
 	}
 
 	void Scene::Render(EditorCamera& camera)
