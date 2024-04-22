@@ -299,6 +299,8 @@ namespace App
 
             m_SceneHierarchyPanel.OnImGuiRender();
 
+            ImGui::ShowDemoWindow();
+
             ImGui::Begin("Viewport");
 
             auto viewportMinRegion = ImGui::GetWindowContentRegionMin();

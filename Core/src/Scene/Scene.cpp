@@ -56,7 +56,7 @@ namespace Core
 
 	Entity& Scene::GetEntityByID(uint32_t id)
 	{
-		if (id < 0 || id > m_Registry.size()) return {};
+		if (id < 0 || id > m_Registry.size()) return Entity();
 
 		return m_Registry[id];
 	}

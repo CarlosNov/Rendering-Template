@@ -9,6 +9,8 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
+#include <glm/gtc/type_ptr.hpp> //TODO: Pasar a subclases
+
 namespace App
 {
 	void SceneHierarchyPanel::SetScene(Core::Scene* scene)
@@ -221,17 +223,26 @@ namespace App
 			DrawVec3Gui("Rotation", entity.GetTransformComponent().Rotation, 0.0f);
 			DrawVec3Gui("Scale", entity.GetTransformComponent().Scale, 1.0f);
 		});
-		/*
+
 		ImGui::Spacing();
 
-		ImGui::PushID("Color");
-		ImGui::Columns(2);
-		ImGui::SetColumnWidth(0, 100.0f);
-		ImGui::Text("Color");
-		ImGui::NextColumn();
-		ImGui::ColorEdit4("Color", glm::value_ptr(m_ActiveScene.GetActiveEntity().GetColorComponent().Color));
-		ImGui::PopID();
-		*/
+		DrawComponent<Core::ColorComponent>("Color", entity, [](Core::Entity& entity)
+		{
+			ImGui::PushID("Color");
+			ImGui::Columns(2);
+			ImGui::SetColumnWidth(0, 100.0f);
+			ImGui::Text("Color");
+			ImGui::NextColumn();
+			ImGui::ColorEdit4("Color", glm::value_ptr(entity.GetColorComponent().Color));
+			ImGui::PopID();
+		});
+
+		ImGui::Spacing();
+
+		DrawComponent<Core::ScriptComponent>("Script", entity, [](Core::Entity& entity)
+		{
+			ImGui::DragFloat("Gravity", &entity.GetScriptComponent().gravity, 0.005f, -10.0f, 10.0f, "%.04f");
+		});
 	}
 
 	template<typename T>
@@ -260,7 +271,7 @@ namespace App
 		ImGui::PopStyleVar(
 		);
 		ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
-		if (ImGui::Button("+", ImVec2{ lineHeight, lineHeight }))
+		if (ImGui::Button("...", ImVec2{ lineHeight, lineHeight }))
 		{
 			ImGui::OpenPopup("ComponentSettings");
 		}
